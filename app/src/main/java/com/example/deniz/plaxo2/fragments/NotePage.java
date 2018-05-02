@@ -1,14 +1,11 @@
-package com.example.deniz.plaxo2;
+package com.example.deniz.plaxo2.fragments;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -21,11 +18,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.content.Intent;
 
-import java.text.SimpleDateFormat;
+import com.example.deniz.plaxo2.AddNoteActivity;
+import com.example.deniz.plaxo2.NotesAdapter;
+import com.example.deniz.plaxo2.R;
+import com.example.deniz.plaxo2.Note;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -43,21 +42,11 @@ public class NotePage extends Fragment {
 
     int modifyPos = -1;
 
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View rootView = inflater.inflate(R.layout.notepage_layout, container, false);
         fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.main_list);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(getActivity().getBaseContext(), AddNoteActivity.class);
-                startActivity(intent);
-
-            }
-        });
 
         StaggeredGridLayoutManager gridLayoutManager =
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
@@ -83,6 +72,17 @@ public class NotePage extends Fragment {
 
         }
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getActivity().getBaseContext(), AddNoteActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+
         // tinting FAB icon
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 
@@ -95,12 +95,8 @@ public class NotePage extends Fragment {
 
         }
 
-
-
-
         // Handling swipe to delete
         ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                 return false;
@@ -156,29 +152,11 @@ public class NotePage extends Fragment {
             }
         });
 
+
         return rootView;
     }
-    public void onStart(){
-        super.onStart();
-
-    }
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putInt("modify", modifyPos);
-    }
-/*
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        modifyPos = savedInstanceState.getInt("modify");
-    }
-*/
 
 
-    @Override
     public void onResume() {
         super.onResume();
 
@@ -204,25 +182,40 @@ public class NotePage extends Fragment {
 
     }
 
-    @SuppressLint("SimpleDateFormat")
-    public static String getDateFormat(long date) {
-        return new SimpleDateFormat("dd MMM yyyy").format(new Date(date));
+    @Override
+    public void onStart(){
+        super.onStart();
+
     }
 
+/*
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
 
-  public void StaggeredGridLayout(){
-        StaggeredGridLayoutManager gridLayoutManager =
-                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        gridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
-        recyclerView.setLayoutManager(gridLayoutManager);
+        modifyPos = savedInstanceState.getInt("modify");
     }
-    public void CreateNote(String title, String desc, long time){
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("modify", modifyPos);
+    }*/
+
+
+
+
+
+
+
+    /*public void CreateNote(String title, String desc, long time){
         Note note = new Note(title, desc, time);
         note.save();
     }
     public void UpdateNote(int noteId){
         Note note = Note.findById(Note.class, noteId);
-        note.title = "updated title here";
+        note.setTitle("updated title here");
         note.save();
     }
     public void DeleteNote(int noteId){
@@ -234,7 +227,7 @@ public class NotePage extends Fragment {
     }
     public void searchNote(){
         List<Note> notes = Note.findWithQuery(Note.class, "Select * from Note where name = ?","mynote");
-    }
+    }*/
 
 
 }

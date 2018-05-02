@@ -1,8 +1,5 @@
 package com.example.deniz.plaxo2;
 
-import android.app.Activity;
-import android.content.Intent;
-
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -28,21 +25,13 @@ public class AddNoteActivity extends AppCompatActivity {
         setContentView(R.layout.addnote_layout);
 
 
-
         getSupportActionBar().setTitle("Add new note");
-
-
-
 
         etTitle = (EditText) findViewById(R.id.addnote_title);
         etDesc = (EditText) findViewById(R.id.addnote_desc);
 
         fab = (FloatingActionButton) findViewById(R.id.addnote_fab);
 
-
-        //  handle intent
-
-//        editingNote = getIntent() != null;
         editingNote = getIntent().getBooleanExtra("isEditing", false);
         if (editingNote) {
             title = getIntent().getStringExtra("note_title");
@@ -76,29 +65,24 @@ public class AddNoteActivity extends AppCompatActivity {
                 } else {
                     Log.d("Note", "updating");
 
-//                    List<Note> notes = Note.findWithQuery(Note.class, "where title = ?", title);
+//                  List<Note> notes = Note.findWithQuery(Note.class, "where title = ?", title);
                     List<Note> notes = Note.find(Note.class, "title = ?", title);
                     if (notes.size() > 0) {
 
                         Note note = notes.get(0);
-                        Log.d("got note", "note: " + note.title);
-                        note.title = newTitle;
-                        note.note = newDesc;
-                        note.noteTime = newTime;
+                        Log.d("got note", "note: " + note.getTitle());
+                        note.setTitle(newTitle);
+                        note.setNote(newDesc);
+                        note.setNoteTime(newTime);
 
                         note.save();
 
                     }
 
                 }
-
                 finish();
-
-
             }
         });
-
-
     }
 }
 
