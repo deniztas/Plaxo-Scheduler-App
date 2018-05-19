@@ -4,6 +4,8 @@ import com.orm.SugarRecord;
 import com.orm.dsl.Table;
 import com.orm.dsl.Unique;
 
+import java.util.Date;
+
 /**
  * Created by Deniz on 13.03.2018.
  */
@@ -13,17 +15,17 @@ public class Note extends SugarRecord {
     private int userId;
     private String title, note;
 
-    private long noteTime;
+    private String date;
 
     // Default constructor is important!
     public Note(){
 
     }
 
-    public Note(String title, String note, long noteTime) {
+    public Note(String title, String note, String date) {
         this.title = title;
         this.note = note;
-        this.noteTime = noteTime;
+        this.date = date;
     }
 
     public String getTitle() {
@@ -42,12 +44,28 @@ public class Note extends SugarRecord {
         this.note = note;
     }
 
-    public long getNoteTime() {
-        return noteTime;
+    public String getDate() {
+        return date;
     }
 
-    public void setNoteTime(long noteTime) {
-        this.noteTime = noteTime;
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public int getNoteId() {
+        return noteId;
+    }
+
+    public void setNoteId(int noteId) {
+        this.noteId = noteId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }
 

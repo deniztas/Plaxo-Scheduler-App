@@ -1,4 +1,4 @@
-package com.example.deniz.plaxo2;
+package com.example.deniz.plaxo2.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.deniz.plaxo2.R;
 import com.example.deniz.plaxo2.model.Note;
 
 import java.util.List;

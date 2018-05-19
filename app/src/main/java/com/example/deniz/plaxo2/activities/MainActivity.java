@@ -1,4 +1,4 @@
-package com.example.deniz.plaxo2;
+package com.example.deniz.plaxo2.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.deniz.plaxo2.R;
 import com.example.deniz.plaxo2.fragments.CalendarPage;
 import com.example.deniz.plaxo2.fragments.ContactPage;
 import com.example.deniz.plaxo2.fragments.FlowPage;

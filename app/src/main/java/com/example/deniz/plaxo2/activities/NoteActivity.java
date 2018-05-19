@@ -1,4 +1,4 @@
-package com.example.deniz.plaxo2.fragments;
+package com.example.deniz.plaxo2.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,29 +8,31 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
-import com.example.deniz.plaxo2.activities.AddNoteActivity;
-import com.example.deniz.plaxo2.adapters.NotesAdapter;
 import com.example.deniz.plaxo2.R;
+import com.example.deniz.plaxo2.adapters.NotesAdapter;
 import com.example.deniz.plaxo2.model.Note;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Deniz on 17.03.2018.
- */
-public class NotePage extends Fragment {
+/*
+*   TO SHOW CONTACT'S LIST
+*   MAKES THE SAME THING WITH CONTACT FRAGMENT
+*
+*
+*
+*
+* */
+public class NoteActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     FloatingActionButton fab;
@@ -42,10 +44,16 @@ public class NotePage extends Fragment {
 
     int modifyPos = -1;
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View rootView = inflater.inflate(R.layout.notepage_layout, container, false);
-        fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.main_list);
+    @Override
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.notepage_layout);
+
+        Intent in = getIntent();
+        final int id = in.getIntExtra("id",-1);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setVisibility(View.GONE);
+        recyclerView = (RecyclerView) findViewById(R.id.main_list);
 
 
         StaggeredGridLayoutManager gridLayoutManager =
@@ -62,36 +70,13 @@ public class NotePage extends Fragment {
 
         if (initialCount >= 0) {
 
-            notes = Note.listAll(Note.class);
+            notes = Note.find(Note.class,"USER_ID = ?", id+"");
 
-            adapter = new NotesAdapter(getActivity().getBaseContext(), notes);
+            adapter = new NotesAdapter(this.getBaseContext(), notes);
             recyclerView.setAdapter(adapter);
 
             if (notes.isEmpty())
                 Snackbar.make(recyclerView, "No notes added.", Snackbar.LENGTH_LONG).show();
-
-        }
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(getActivity().getBaseContext(), AddNoteActivity.class);
-                startActivity(intent);
-
-            }
-        });
-
-
-        // tinting FAB icon
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-
-            Drawable drawable = ContextCompat.getDrawable(getActivity().getBaseContext(), R.drawable.ic_add_24dp);
-            drawable = DrawableCompat.wrap(drawable);
-            DrawableCompat.setTint(drawable, Color.WHITE);
-            DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_IN);
-
-            fab.setImageDrawable(drawable);
 
         }
 
@@ -140,22 +125,19 @@ public class NotePage extends Fragment {
 
                 Log.d("Main", "click");
 
-                Intent i = new Intent(getActivity().getBaseContext(), AddNoteActivity.class);
+                Intent i = new Intent(view.getContext(), AddNoteActivity.class);
                 i.putExtra("isEditing", true);
                 i.putExtra("note_title", notes.get(position).getTitle());
                 i.putExtra("note", notes.get(position).getNote());
                 i.putExtra("note_time", notes.get(position).getDate());
+                i.putExtra("id",notes.get(position).getUserId());
 
                 modifyPos = position;
 
                 startActivity(i);
             }
         });
-
-
-        return rootView;
     }
-
 
     public void onResume() {
         super.onResume();
@@ -182,7 +164,6 @@ public class NotePage extends Fragment {
             notes.set(modifyPos, Note.listAll(Note.class).get(modifyPos));
             adapter.notifyItemChanged(modifyPos);
         }
-
     }
 
     @Override
@@ -190,6 +171,4 @@ public class NotePage extends Fragment {
         super.onStart();
 
     }
-
 }
-

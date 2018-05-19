@@ -1,20 +1,18 @@
 package com.example.deniz.plaxo2.adapters;
 
 import android.content.Context;
-import android.graphics.Movie;
-import android.support.annotation.LayoutRes;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.deniz.plaxo2.activities.ContactActivity;
 import com.example.deniz.plaxo2.R;
 import com.example.deniz.plaxo2.model.Contact;
 
@@ -59,9 +57,12 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
             public void onClick(View v) {
                 TextView clickedText = (TextView)v;
                 String name = clickedText.getText().toString();
+                Intent in = new Intent(mContext, ContactActivity.class);
+                in.putExtra("Object",name);
+                mContext.startActivity(in);
 
-                List<Contact> contacts = Contact.find(Contact.class, "CONTACT_NAME = ?", name);
-                System.out.print(contacts);
+                //List<Contact> contacts = Contact.find(Contact.class, "CONTACT_NAME = ?", name);
+                //System.out.print(contacts);
             }
         });
 

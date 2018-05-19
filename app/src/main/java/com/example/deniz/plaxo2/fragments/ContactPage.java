@@ -4,33 +4,25 @@ package com.example.deniz.plaxo2.fragments;
 import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.app.LoaderManager;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
-import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,17 +31,10 @@ import com.example.deniz.plaxo2.adapters.ContactAdapter;
 import com.example.deniz.plaxo2.model.Contact;
 
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import static android.content.Context.ACCOUNT_SERVICE;
-import static java.util.Comparator.comparingInt;
-import static java.util.stream.Collectors.collectingAndThen;
-import static java.util.stream.Collectors.toCollection;
 
 /**
  * Created by Deniz on 17.03.2018.
@@ -83,17 +68,6 @@ public class ContactPage extends Fragment{
             mAdapter = new ContactAdapter(getActivity(),contacts);
 
             listView.setAdapter(mAdapter);
-
-            listView.setClickable(true);
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                    @Override
-                    public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-
-                        Object o = listView.getItemAtPosition(position);
-                        System.out.print(o);
-                    }
-                });
         }
 
 
@@ -158,6 +132,7 @@ public class ContactPage extends Fragment{
     }
 
     public ArrayList<Contact> getContacts(Context ctx) {
+        int primaryId = 1;
         List<Contact> currentContacts = Contact.listAll(Contact.class);
         ArrayList<Contact> list = new ArrayList<Contact>();
         ContentResolver contentResolver = ctx.getContentResolver();
@@ -178,7 +153,7 @@ public class ContactPage extends Fragment{
                     if (inputStream != null) {
                         photo = BitmapFactory.decodeStream(inputStream);
                     }
-                    int primaryId = 1;
+
 
                     List<String> checkDuplicate = new ArrayList<String>();
 
@@ -194,11 +169,10 @@ public class ContactPage extends Fragment{
                         contact.setContactName(contactName);
                         contact.setPhoneNumber(cursorInfo.getString(cursorInfo.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
                         contact.setContactId(primaryId);
-
+                        primaryId++;
                         if(!checkDuplicate.contains(contactName)){
                             contact.save();
                             checkDuplicate.add(contactName);
-                            primaryId++;
                             list.add(contact);
                         }
 
@@ -211,11 +185,7 @@ public class ContactPage extends Fragment{
             list.addAll(currentContacts);
             cursor.close();
         }
-        System.out.print(list);
 
         return list;
     }
-
-
-
 }
