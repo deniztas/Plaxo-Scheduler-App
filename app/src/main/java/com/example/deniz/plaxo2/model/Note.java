@@ -1,4 +1,4 @@
-package com.example.deniz.plaxo2;
+package com.example.deniz.plaxo2.model;
 
 import com.orm.SugarRecord;
 import com.orm.dsl.Table;
@@ -9,10 +9,11 @@ import com.orm.dsl.Unique;
  */
 
 public class Note extends SugarRecord {
-    @Unique
-    int noteId;
-    String title, note;
-    long noteTime;
+    private int noteId;
+    private int userId;
+    private String title, note;
+
+    private long noteTime;
 
     // Default constructor is important!
     public Note(){
@@ -48,6 +49,5 @@ public class Note extends SugarRecord {
     public void setNoteTime(long noteTime) {
         this.noteTime = noteTime;
     }
-
 }
 

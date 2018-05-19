@@ -22,7 +22,7 @@ import android.view.ViewGroup;
 import com.example.deniz.plaxo2.AddNoteActivity;
 import com.example.deniz.plaxo2.NotesAdapter;
 import com.example.deniz.plaxo2.R;
-import com.example.deniz.plaxo2.Note;
+import com.example.deniz.plaxo2.model.Note;
 
 import java.util.ArrayList;
 import java.util.List;

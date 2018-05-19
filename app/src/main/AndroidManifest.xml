@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.deniz.plaxo2">
-
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
     <application
         android:name="com.orm.SugarApp"
         android:allowBackup="true"
@@ -15,7 +17,7 @@
             android:value="plaxo2.db" />
         <meta-data
             android:name="VERSION"
-            android:value="1" />
+            android:value="3" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
@@ -35,6 +37,7 @@
         <activity android:name=".AddNoteActivity">
 
         </activity>
+
     </application>
 
 </manifest>

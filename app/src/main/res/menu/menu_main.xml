@@ -7,4 +7,9 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/getContactPermission"
+        android:orderInCategory="101"
+        android:title="Get Contact Permission"
+        app:showAsAction="never" />
 </menu>

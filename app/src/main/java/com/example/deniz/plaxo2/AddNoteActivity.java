@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.deniz.plaxo2.model.Note;
+
 import java.util.List;
 
 public class AddNoteActivity extends AppCompatActivity {

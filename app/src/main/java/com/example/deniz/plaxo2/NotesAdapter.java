@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.deniz.plaxo2.model.Note;
+
 import java.util.List;
 
 
