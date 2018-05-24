@@ -23,7 +23,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/textView3"
+                android:id="@+id/event_title"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:hint="Title"
