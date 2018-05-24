@@ -9,7 +9,7 @@ public class Event extends SugarRecord {
     private int eventId;
     private int userId;
     private String title;
-    private Date date;
+    private String date;
     private int startHour;
     private int startMinute;
     private int endHour;
@@ -43,11 +43,11 @@ public class Event extends SugarRecord {
         this.title = title;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

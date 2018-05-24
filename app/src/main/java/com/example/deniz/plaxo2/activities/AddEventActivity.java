@@ -89,7 +89,7 @@ public class AddEventActivity extends AppCompatActivity {
 
                     Event event = new Event();
                     event.setEventId(size+1);
-                    event.setDate(selectedDate);
+                    event.setDate(selectedDate+"");
                     event.setEndHour(end_hour);
                     event.setEndMinute(end_minute);
                     event.setStartHour(start_hour);
