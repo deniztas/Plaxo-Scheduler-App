@@ -16,11 +16,5 @@
             android:layout_height="wrap_content"
             android:text="Connect Facebook"
             android:onClick="onClick"/>
-
-        <Button
-            android:id="@+id/receive_friends"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Get Friends" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

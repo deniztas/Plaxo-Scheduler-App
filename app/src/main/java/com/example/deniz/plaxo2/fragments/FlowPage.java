@@ -25,7 +25,6 @@ public class FlowPage extends Fragment {
         View rootView = inflater.inflate(R.layout.flowpage_layout, container, false);
 
         connectFacebookButton = (Button) rootView.findViewById(R.id.facebook_button);
-        receiveFriends = (Button) rootView.findViewById(R.id.receive_friends);
 
         connectFacebookButton.setOnClickListener(new View.OnClickListener() {
             @Override

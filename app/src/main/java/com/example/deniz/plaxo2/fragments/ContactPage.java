@@ -50,6 +50,7 @@ public class ContactPage extends Fragment {
     static final Integer ACCOUNTS = 0x6;
     static final Integer READ_CONTACT = 0x1;
     private int primaryId = 1;
+    private static ArrayList<Contact> contacts = new ArrayList<>();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.contactpage_layout, container, false);
@@ -64,7 +65,8 @@ public class ContactPage extends Fragment {
             permissionButton.setVisibility(View.GONE);
             permissionText.setVisibility(View.GONE);
 
-            ArrayList contacts = getContacts(getActivity());
+            if (contacts.size() <= 0)
+                contacts = getContacts(getActivity());
 
             Collections.sort(contacts, new Comparator<Contact>() {
                 public int compare(Contact one, Contact other) {
@@ -157,17 +159,13 @@ public class ContactPage extends Fragment {
             checkDuplicate.add(currentContacts.get(i).getContactName());
         }
         if (cursor.getCount() > 0) {
+
             while (cursor.moveToNext()) {
 
                 String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
                 if (cursor.getInt(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)) > 0) {
                     Cursor cursorInfo = contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
                             ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", new String[]{id}, null);
-                    InputStream inputStream = ContactsContract.Contacts.openContactPhotoInputStream(ctx.getContentResolver(),
-                            ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, new Long(id)));
-
-                    Uri person = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, new Long(id));
-
 
                     while (cursorInfo.moveToNext()) {
 
