@@ -37,10 +37,10 @@ public class AddNoteActivity extends AppCompatActivity {
         setContentView(R.layout.addnote_layout);
 
         Intent in = getIntent();
-        final int id = in.getIntExtra("id",-1);
+        final int id = in.getIntExtra("id", -1);
         Contact contact = null;
-        if(id != -1){
-            contact = Contact.find(Contact.class,"CONTACT_ID = ?", id+"").get(0);
+        if (id != -1) {
+            contact = Contact.find(Contact.class, "CONTACT_ID = ?", id + "").get(0);
         }
 
 
@@ -61,20 +61,19 @@ public class AddNoteActivity extends AppCompatActivity {
 
 
             List<Note> queried_notes = Note.find(Note.class, "title = ?", title);
-            if(!queried_notes.isEmpty()){
+            if (!queried_notes.isEmpty()) {
                 int userId = queried_notes.get(0).getUserId();
 
 
-                List<Contact> queried_contacts = Contact.find(Contact.class, "CONTACT_ID = ?", userId+"");
+                List<Contact> queried_contacts = Contact.find(Contact.class, "CONTACT_ID = ?", userId + "");
 
-                if(contact != null){
+                if (contact != null) {
                     userName.setText(contact.getContactName());
                 }
-                if(!queried_contacts.isEmpty()){
+                if (!queried_contacts.isEmpty()) {
                     Contact queried_contact = queried_contacts.get(0);
                     userName.setText(queried_contact.getContactName());
-                }
-                else{
+                } else {
                     userName.setText("");
                 }
             }
@@ -112,8 +111,8 @@ public class AddNoteActivity extends AppCompatActivity {
                 if (!editingNote) {
                     Log.d("Note", "saving");
                     Note note = new Note(newTitle, newDesc, date_string);
-                    note.setNoteId(size+1);
-                    if(id != -1){
+                    note.setNoteId(size + 1);
+                    if (id != -1) {
                         note.setUserId(id);
                     }
                     note.save();

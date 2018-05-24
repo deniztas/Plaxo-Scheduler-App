@@ -1,32 +1,15 @@
 package com.example.deniz.plaxo2.fragments;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.deniz.plaxo2.R;
 import com.example.deniz.plaxo2.activities.FacebookActivity;
-import com.facebook.AccessToken;
-import com.facebook.AccessTokenSource;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-
-import org.json.JSONArray;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by Deniz on 17.03.2018.
@@ -37,7 +20,8 @@ public class FlowPage extends Fragment {
 
     private Button connectFacebookButton;
     private Button receiveFriends;
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.flowpage_layout, container, false);
 
         connectFacebookButton = (Button) rootView.findViewById(R.id.facebook_button);
@@ -94,12 +78,6 @@ public class FlowPage extends Fragment {
                 }
             });
         }*/
-
-
-
-
-
-
 
 
         return rootView;

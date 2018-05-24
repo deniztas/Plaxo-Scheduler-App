@@ -61,6 +61,7 @@
         </activity>
         <activity android:name=".activities.ContactActivity"></activity>
         <activity android:name=".activities.Contact_NoteActivity"></activity>
+        <activity android:name=".activities.Contact_EventActivity"></activity>
         <activity android:name=".activities.FacebookActivity"></activity>
         <activity android:name=".activities.AddEventActivity"></activity>
     </application>

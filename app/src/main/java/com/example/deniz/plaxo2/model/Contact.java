@@ -2,7 +2,6 @@ package com.example.deniz.plaxo2.model;
 
 
 import com.orm.SugarRecord;
-import com.orm.dsl.Unique;
 
 public class Contact extends SugarRecord {
     private int contactId;

@@ -8,12 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.deniz.plaxo2.activities.ContactActivity;
 import com.example.deniz.plaxo2.R;
+import com.example.deniz.plaxo2.activities.ContactActivity;
 import com.example.deniz.plaxo2.model.Contact;
 
 import java.util.ArrayList;
@@ -22,13 +20,9 @@ import java.util.List;
 public class ContactAdapter extends ArrayAdapter<Contact> {
     private Context mContext;
     private List<Contact> contactList = new ArrayList<>();
-    Button permissionButton;
-    TextView permissionText;
-    ListView listView;
-
 
     public ContactAdapter(@NonNull Context context, ArrayList<Contact> list) {
-        super(context, 0 , list);
+        super(context, 0, list);
         mContext = context;
         contactList = list;
     }
@@ -37,16 +31,8 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View listItem = convertView;
-        if(listItem == null)
-            listItem = LayoutInflater.from(mContext).inflate(R.layout.contactpage_layout,parent,false);
-
-
-
-        permissionButton = (Button) listItem.findViewById(R.id.permissionButton);
-        permissionText = (TextView) listItem.findViewById(R.id.permissionText);
-        permissionButton.setVisibility(View.GONE);
-        permissionText.setVisibility(View.GONE);
-        listView = (ListView) listItem.findViewById(R.id.contactListview);
+        if (listItem == null)
+            listItem = LayoutInflater.from(mContext).inflate(R.layout.contact_row, parent, false);
 
 
         Contact currentContact = contactList.get(position);
@@ -57,19 +43,13 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
         name.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                TextView clickedText = (TextView)v;
+                TextView clickedText = (TextView) v;
                 String name = clickedText.getText().toString();
                 Intent in = new Intent(mContext, ContactActivity.class);
-                in.putExtra("Object",name);
+                in.putExtra("Object", name);
                 mContext.startActivity(in);
-
-                //List<Contact> contacts = Contact.find(Contact.class, "CONTACT_NAME = ?", name);
-                //System.out.print(contacts);
             }
         });
-
-
-
         return listItem;
     }
 }

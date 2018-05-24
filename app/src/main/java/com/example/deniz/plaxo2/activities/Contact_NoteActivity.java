@@ -1,15 +1,9 @@
 package com.example.deniz.plaxo2.activities;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -25,13 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
-*   TO SHOW CONTACT'S LIST
-*   MAKES THE SAME THING WITH CONTACT FRAGMENT
-*
-*
-*
-*
-* */
+ *   TO SHOW CONTACT'S LIST
+ *   MAKES THE SAME THING WITH CONTACT FRAGMENT
+ *
+ *
+ *
+ *
+ * */
 public class Contact_NoteActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
@@ -45,12 +39,12 @@ public class Contact_NoteActivity extends AppCompatActivity {
     int modifyPos = -1;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notepage_layout);
 
         Intent in = getIntent();
-        final int id = in.getIntExtra("id",-1);
+        final int id = in.getIntExtra("id", -1);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setVisibility(View.GONE);
         recyclerView = (RecyclerView) findViewById(R.id.main_list);
@@ -70,7 +64,7 @@ public class Contact_NoteActivity extends AppCompatActivity {
 
         if (initialCount >= 0) {
 
-            notes = Note.find(Note.class,"USER_ID = ?", id+"");
+            notes = Note.find(Note.class, "USER_ID = ?", id + "");
 
             adapter = new NotesAdapter(this.getBaseContext(), notes);
             recyclerView.setAdapter(adapter);
@@ -130,7 +124,7 @@ public class Contact_NoteActivity extends AppCompatActivity {
                 i.putExtra("note_title", notes.get(position).getTitle());
                 i.putExtra("note", notes.get(position).getNote());
                 i.putExtra("note_time", notes.get(position).getDate());
-                i.putExtra("id",notes.get(position).getUserId());
+                i.putExtra("id", notes.get(position).getUserId());
 
                 modifyPos = position;
 
@@ -149,8 +143,8 @@ public class Contact_NoteActivity extends AppCompatActivity {
             Log.d("Main", "Adding new note");
 
             // Just load the last added note (new)
-            List <Note> allNotes = Note.listAll(Note.class);
-            for (int i = (int)initialCount; i < newCount; i++) {
+            List<Note> allNotes = Note.listAll(Note.class);
+            for (int i = (int) initialCount; i < newCount; i++) {
                 Note note = allNotes.get(i);
                 notes.add(note);
             }
@@ -167,7 +161,7 @@ public class Contact_NoteActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
 
     }

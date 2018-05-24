@@ -19,9 +19,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.deniz.plaxo2.R;
 import com.example.deniz.plaxo2.activities.AddNoteActivity;
 import com.example.deniz.plaxo2.adapters.NotesAdapter;
-import com.example.deniz.plaxo2.R;
 import com.example.deniz.plaxo2.model.Note;
 
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class NotePage extends Fragment {
 
     int modifyPos = -1;
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.notepage_layout, container, false);
         fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.main_list);
@@ -167,8 +167,8 @@ public class NotePage extends Fragment {
             Log.d("Main", "Adding new note");
 
             // Just load the last added note (new)
-            List <Note> allNotes = Note.listAll(Note.class);
-            for (int i = (int)initialCount; i < newCount; i++) {
+            List<Note> allNotes = Note.listAll(Note.class);
+            for (int i = (int) initialCount; i < newCount; i++) {
                 Note note = allNotes.get(i);
                 notes.add(note);
             }
@@ -186,7 +186,7 @@ public class NotePage extends Fragment {
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
 
     }

@@ -1,10 +1,6 @@
 package com.example.deniz.plaxo2.model;
 
 import com.orm.SugarRecord;
-import com.orm.dsl.Table;
-import com.orm.dsl.Unique;
-
-import java.util.Date;
 
 /**
  * Created by Deniz on 13.03.2018.
@@ -18,7 +14,7 @@ public class Note extends SugarRecord {
     private String date;
 
     // Default constructor is important!
-    public Note(){
+    public Note() {
 
     }
 

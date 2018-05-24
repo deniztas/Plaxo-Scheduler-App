@@ -2,8 +2,6 @@ package com.example.deniz.plaxo2.model;
 
 import com.orm.SugarRecord;
 
-import java.util.Date;
-
 public class Event extends SugarRecord {
 
     private int eventId;
@@ -15,7 +13,7 @@ public class Event extends SugarRecord {
     private int endHour;
     private int endMinute;
 
-    public Event(){
+    public Event() {
 
     }
 

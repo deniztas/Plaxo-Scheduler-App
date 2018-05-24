@@ -9,8 +9,6 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -43,7 +41,7 @@ import static android.content.Context.ACCOUNT_SERVICE;
  * Created by Deniz on 17.03.2018.
  */
 
-public class ContactPage extends Fragment{
+public class ContactPage extends Fragment {
 
     Button permissionButton;
     TextView permissionText;
@@ -51,8 +49,9 @@ public class ContactPage extends Fragment{
     private ContactAdapter mAdapter;
     static final Integer ACCOUNTS = 0x6;
     static final Integer READ_CONTACT = 0x1;
+    private int primaryId = 1;
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.contactpage_layout, container, false);
         permissionButton = (Button) rootView.findViewById(R.id.permissionButton);
         permissionText = (TextView) rootView.findViewById(R.id.permissionText);
@@ -61,7 +60,7 @@ public class ContactPage extends Fragment{
 
         boolean granted = checkContactPermission();
 
-        if(granted){
+        if (granted) {
             permissionButton.setVisibility(View.GONE);
             permissionText.setVisibility(View.GONE);
 
@@ -74,7 +73,7 @@ public class ContactPage extends Fragment{
             });
 
             //ArrayAdapter adapter = new ArrayAdapter<Contact>(getActivity(), R.layout.contactpage_layout, R.id.test, contacts);
-            mAdapter = new ContactAdapter(getActivity(),contacts);
+            mAdapter = new ContactAdapter(getActivity(), contacts);
 
             listView.setAdapter(mAdapter);
         }
@@ -84,16 +83,15 @@ public class ContactPage extends Fragment{
         permissionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                askForPermission(Manifest.permission.GET_ACCOUNTS,ACCOUNTS);
-                askForPermission(Manifest.permission.READ_CONTACTS,ACCOUNTS);
+                askForPermission(Manifest.permission.GET_ACCOUNTS, ACCOUNTS);
+                askForPermission(Manifest.permission.READ_CONTACTS, ACCOUNTS);
             }
         });
 
         return rootView;
     }
 
-    private boolean checkContactPermission()
-    {
+    private boolean checkContactPermission() {
         String permission = Manifest.permission.GET_ACCOUNTS;
         String permission2 = Manifest.permission.READ_CONTACTS;
 
@@ -108,11 +106,11 @@ public class ContactPage extends Fragment{
             if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), permission)) {
 
                 ActivityCompat.requestPermissions(getActivity(), new String[]{permission}, requestCode);
-                ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_CONTACTS},1);
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_CONTACTS}, 1);
             } else {
 
                 ActivityCompat.requestPermissions(getActivity(), new String[]{permission}, requestCode);
-                ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_CONTACTS},1);
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_CONTACTS}, 1);
             }
         } else {
             Toast.makeText(getActivity(), "" + permission + " is already granted.", Toast.LENGTH_SHORT).show();
@@ -125,28 +123,28 @@ public class ContactPage extends Fragment{
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(ActivityCompat.checkSelfPermission(getActivity(), permissions[0]) == PackageManager.PERMISSION_GRANTED){
+        if (ActivityCompat.checkSelfPermission(getActivity(), permissions[0]) == PackageManager.PERMISSION_GRANTED) {
             switch (requestCode) {
                 //Accounts
                 case 6:
                     AccountManager manager = (AccountManager) getActivity().getSystemService(ACCOUNT_SERVICE);
                     Account[] list = manager.getAccounts();
-                    Toast.makeText(getActivity(),""+list[0].name,Toast.LENGTH_SHORT).show();
-                    for(int i=0; i<list.length;i++){
-                        Log.e("Account "+i,""+list[i].name);
+                    Toast.makeText(getActivity(), "" + list[0].name, Toast.LENGTH_SHORT).show();
+                    for (int i = 0; i < list.length; i++) {
+                        Log.e("Account " + i, "" + list[i].name);
                     }
             }
 
             Toast.makeText(getActivity(), "Permission granted", Toast.LENGTH_SHORT).show();
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.detach(this).attach(this).commit();
-        }else{
+        } else {
             Toast.makeText(getActivity(), "Permission denied", Toast.LENGTH_SHORT).show();
         }
     }
 
     public ArrayList<Contact> getContacts(Context ctx) {
-        int primaryId = 1;
+
         List<Contact> currentContacts = Contact.listAll(Contact.class);
         ArrayList<Contact> list = new ArrayList<Contact>();
         ContentResolver contentResolver = ctx.getContentResolver();
@@ -160,6 +158,7 @@ public class ContactPage extends Fragment{
         }
         if (cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
+
                 String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
                 if (cursor.getInt(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)) > 0) {
                     Cursor cursorInfo = contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
@@ -177,8 +176,8 @@ public class ContactPage extends Fragment{
                         contact.setContactName(contactName);
                         contact.setPhoneNumber(cursorInfo.getString(cursorInfo.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
                         contact.setContactId(primaryId);
-                        primaryId++;
-                        if(!checkDuplicate.contains(contactName)){
+
+                        if (!checkDuplicate.contains(contactName)) {
                             contact.save();
                             checkDuplicate.add(contactName);
                             list.add(contact);
@@ -189,6 +188,7 @@ public class ContactPage extends Fragment{
                     cursorInfo.close();
 
                 }
+                primaryId++;
             }
             list.addAll(currentContacts);
             cursor.close();

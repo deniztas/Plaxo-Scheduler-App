@@ -3,7 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/contact_layout"
+    android:background="@android:color/white"
+    >
 
 
     <LinearLayout
@@ -90,6 +93,37 @@
                     android:layout_weight="1"
                     android:text="List Notes"
                     android:onClick="onClick"/>
+
+            </TableRow>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+
+                <Button
+                    android:id="@+id/add_new_event"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Create New Event"
+                    android:onClick="onClick"/>
+
+                <Button
+                    android:id="@+id/list_events"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="List Events"
+                    android:onClick="onClick"/>
+
             </TableRow>
 
         </LinearLayout>
