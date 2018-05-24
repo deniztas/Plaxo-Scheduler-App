@@ -47,7 +47,7 @@ public class ContactActivity extends AppCompatActivity {
                 break;
 
             case R.id.list_notes_button:
-                Intent in2 = new Intent(this,NoteActivity.class);
+                Intent in2 = new Intent(this,Contact_NoteActivity.class);
                 in2.putExtra("id", contactId);
                 startActivity(in2);
                 break;

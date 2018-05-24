@@ -41,11 +41,13 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
             listItem = LayoutInflater.from(mContext).inflate(R.layout.contactpage_layout,parent,false);
 
 
+
         permissionButton = (Button) listItem.findViewById(R.id.permissionButton);
         permissionText = (TextView) listItem.findViewById(R.id.permissionText);
-        listView = (ListView) listItem.findViewById(R.id.contactListview);
         permissionButton.setVisibility(View.GONE);
         permissionText.setVisibility(View.GONE);
+        listView = (ListView) listItem.findViewById(R.id.contactListview);
+
 
         Contact currentContact = contactList.get(position);
 

@@ -1,5 +1,6 @@
 package com.example.deniz.plaxo2.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -11,16 +12,30 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.example.deniz.plaxo2.BuildConfig;
 import com.example.deniz.plaxo2.R;
 import com.example.deniz.plaxo2.fragments.CalendarPage;
 import com.example.deniz.plaxo2.fragments.ContactPage;
 import com.example.deniz.plaxo2.fragments.FlowPage;
 import com.example.deniz.plaxo2.fragments.NotePage;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.LoggingBehavior;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
             setupDrawerContent(navView);
         }
     }
+
+
 
     private void setupViewPager(ViewPager viewPager){
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());

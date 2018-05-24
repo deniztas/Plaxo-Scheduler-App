@@ -79,9 +79,6 @@ public class AddNoteActivity extends AppCompatActivity {
                 }
             }
 
-
-
-
             etTitle.setText(title);
             etDesc.setText(note);
 

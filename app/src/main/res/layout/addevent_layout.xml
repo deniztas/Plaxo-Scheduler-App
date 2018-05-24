@@ -1,0 +1,81 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/selected_date"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="dATE"
+                android:textAlignment="center"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="Title"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="8dp" />
+
+            <TextView
+                android:id="@+id/StartTime"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:text="Start Time"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="151dp" />
+
+            <TimePicker
+                android:id="@+id/start_time_picker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleY="0.80"
+                android:timePickerMode="spinner" />
+
+            <TextView
+                android:id="@+id/endTime"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:text="End Time"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="370dp" />
+
+            <TimePicker
+                android:id="@+id/end_time_picker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleY="0.80"
+                android:timePickerMode="spinner" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/addEvent_fab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@drawable/ic_done_24dp"
+                android:tint="@android:color/white"
+                app:backgroundTint="@android:color/holo_blue_bright"
+                tools:layout_editor_absoluteX="319dp"
+                tools:layout_editor_absoluteY="455dp" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

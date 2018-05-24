@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,6 +33,8 @@ import com.example.deniz.plaxo2.model.Contact;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import static android.content.Context.ACCOUNT_SERVICE;
@@ -63,6 +66,12 @@ public class ContactPage extends Fragment{
             permissionText.setVisibility(View.GONE);
 
             ArrayList contacts = getContacts(getActivity());
+
+            Collections.sort(contacts, new Comparator<Contact>() {
+                public int compare(Contact one, Contact other) {
+                    return one.getContactName().compareTo(other.getContactName());
+                }
+            });
 
             //ArrayAdapter adapter = new ArrayAdapter<Contact>(getActivity(), R.layout.contactpage_layout, R.id.test, contacts);
             mAdapter = new ContactAdapter(getActivity(),contacts);
@@ -107,6 +116,9 @@ public class ContactPage extends Fragment{
             }
         } else {
             Toast.makeText(getActivity(), "" + permission + " is already granted.", Toast.LENGTH_SHORT).show();
+
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.detach(this).attach(this).commit();
         }
     }
 
@@ -126,6 +138,8 @@ public class ContactPage extends Fragment{
             }
 
             Toast.makeText(getActivity(), "Permission granted", Toast.LENGTH_SHORT).show();
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.detach(this).attach(this).commit();
         }else{
             Toast.makeText(getActivity(), "Permission denied", Toast.LENGTH_SHORT).show();
         }
@@ -137,6 +151,13 @@ public class ContactPage extends Fragment{
         ArrayList<Contact> list = new ArrayList<Contact>();
         ContentResolver contentResolver = ctx.getContentResolver();
         Cursor cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+
+        List<String> checkDuplicate = new ArrayList<String>();
+
+
+        for (int i = 0; i < currentContacts.size(); i++) {
+            checkDuplicate.add(currentContacts.get(i).getContactName());
+        }
         if (cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
                 String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
@@ -147,20 +168,7 @@ public class ContactPage extends Fragment{
                             ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, new Long(id)));
 
                     Uri person = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, new Long(id));
-                    Uri pURI = Uri.withAppendedPath(person, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
 
-                    Bitmap photo = null;
-                    if (inputStream != null) {
-                        photo = BitmapFactory.decodeStream(inputStream);
-                    }
-
-
-                    List<String> checkDuplicate = new ArrayList<String>();
-
-
-                    for (int i = 0; i < currentContacts.size(); i++) {
-                        checkDuplicate.add(currentContacts.get(i).getContactName());
-                    }
 
                     while (cursorInfo.moveToNext()) {
 

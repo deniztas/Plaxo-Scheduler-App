@@ -32,7 +32,7 @@ import java.util.List;
 *
 *
 * */
-public class NoteActivity extends AppCompatActivity {
+public class Contact_NoteActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     FloatingActionButton fab;
