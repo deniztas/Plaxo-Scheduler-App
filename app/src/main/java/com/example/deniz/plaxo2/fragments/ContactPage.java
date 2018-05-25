@@ -108,35 +108,6 @@ public class ContactPage extends Fragment {
         }
     }
 
-    private boolean checkContactPermission() {
-        String permission = Manifest.permission.GET_ACCOUNTS;
-        String permission2 = Manifest.permission.READ_CONTACTS;
-
-        int res = getContext().checkCallingOrSelfPermission(permission);
-        int res2 = getContext().checkCallingOrSelfPermission(permission2);
-        return (res == PackageManager.PERMISSION_GRANTED) && (res2 == PackageManager.PERMISSION_GRANTED);
-    }
-
-    private void askForPermission(String permission, Integer requestCode) {
-        if (ContextCompat.checkSelfPermission(getActivity(), permission) != PackageManager.PERMISSION_GRANTED) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), permission)) {
-
-                ActivityCompat.requestPermissions(getActivity(), new String[]{permission}, requestCode);
-                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_CONTACTS}, 1);
-            } else {
-
-                ActivityCompat.requestPermissions(getActivity(), new String[]{permission}, requestCode);
-                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_CONTACTS}, 1);
-            }
-        } else {
-            Toast.makeText(getActivity(), "" + permission + " is already granted.", Toast.LENGTH_SHORT).show();
-
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.detach(this).attach(this).commit();
-        }
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[]
             grantResults) {
@@ -151,7 +122,7 @@ public class ContactPage extends Fragment {
                 break;
         }
     }
-    
+
     public ArrayList<Contact> getContacts(Context ctx) {
 
         List<Contact> currentContacts = Contact.listAll(Contact.class);
