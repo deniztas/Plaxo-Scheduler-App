@@ -59,38 +59,53 @@ public class ContactPage extends Fragment {
         listView = (ListView) rootView.findViewById(R.id.contactListview);
 
 
-        boolean granted = checkContactPermission();
+        boolean granted = checkIfAlreadyhavePermission();
 
         if (granted) {
-            permissionButton.setVisibility(View.GONE);
-            permissionText.setVisibility(View.GONE);
-
-            if (contacts.size() <= 0)
-                contacts = getContacts(getActivity());
-
-            Collections.sort(contacts, new Comparator<Contact>() {
-                public int compare(Contact one, Contact other) {
-                    return one.getContactName().compareTo(other.getContactName());
-                }
-            });
-
-            //ArrayAdapter adapter = new ArrayAdapter<Contact>(getActivity(), R.layout.contactpage_layout, R.id.test, contacts);
-            mAdapter = new ContactAdapter(getActivity(), contacts);
-
-            listView.setAdapter(mAdapter);
+            insertUsers();
         }
-
 
         //REQUEST PERMISSION
         permissionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                askForPermission(Manifest.permission.GET_ACCOUNTS, ACCOUNTS);
-                askForPermission(Manifest.permission.READ_CONTACTS, ACCOUNTS);
+                requestForSpecificPermission();
             }
         });
 
         return rootView;
+    }
+
+    private void insertUsers(){
+        permissionButton.setVisibility(View.GONE);
+        permissionText.setVisibility(View.GONE);
+
+        if (contacts.size() <= 0)
+            contacts = getContacts(getActivity());
+
+        Collections.sort(contacts, new Comparator<Contact>() {
+            public int compare(Contact one, Contact other) {
+                return one.getContactName().compareTo(other.getContactName());
+            }
+        });
+
+        mAdapter = new ContactAdapter(getActivity(), contacts);
+
+        listView.setAdapter(mAdapter);
+    }
+
+    private void requestForSpecificPermission() {
+        requestPermissions(new String[]{Manifest.permission.GET_ACCOUNTS, Manifest.permission.READ_CONTACTS},1);
+    }
+
+    private boolean checkIfAlreadyhavePermission() {
+        int result1 = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.GET_ACCOUNTS);
+        int result2 = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CONTACTS);
+        if (result1 == PackageManager.PERMISSION_GRANTED && result2 == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private boolean checkContactPermission() {
@@ -123,28 +138,20 @@ public class ContactPage extends Fragment {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (ActivityCompat.checkSelfPermission(getActivity(), permissions[0]) == PackageManager.PERMISSION_GRANTED) {
-            switch (requestCode) {
-                //Accounts
-                case 6:
-                    AccountManager manager = (AccountManager) getActivity().getSystemService(ACCOUNT_SERVICE);
-                    Account[] list = manager.getAccounts();
-                    Toast.makeText(getActivity(), "" + list[0].name, Toast.LENGTH_SHORT).show();
-                    for (int i = 0; i < list.length; i++) {
-                        Log.e("Account " + i, "" + list[i].name);
-                    }
-            }
-
-            Toast.makeText(getActivity(), "Permission granted", Toast.LENGTH_SHORT).show();
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.detach(this).attach(this).commit();
-        } else {
-            Toast.makeText(getActivity(), "Permission denied", Toast.LENGTH_SHORT).show();
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[]
+            grantResults) {
+        switch (requestCode) {
+            case 1:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    insertUsers();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+                break;
         }
     }
-
+    
     public ArrayList<Contact> getContacts(Context ctx) {
 
         List<Contact> currentContacts = Contact.listAll(Contact.class);
