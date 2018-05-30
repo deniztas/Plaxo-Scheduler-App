@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.deniz.plaxo2.R;
@@ -34,7 +35,7 @@ public class CalendarAdapter extends ArrayAdapter<Event> {
         if (listItem == null)
             listItem = LayoutInflater.from(mContext).inflate(R.layout.event_row, parent, false);
 
-        Event currenctEvent = eventList.get(position);
+        final Event currenctEvent = eventList.get(position);
 
         TextView event_name = (TextView) listItem.findViewById(R.id.event_name);
         event_name.setText(currenctEvent.getTitle());
@@ -68,30 +69,52 @@ public class CalendarAdapter extends ArrayAdapter<Event> {
         event_name.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                TextView clickedText = (TextView) v;
-                String name = clickedText.getText().toString();
+                String name = currenctEvent.getTitle();
+                deleteEvent(name,v,position);
+                return true;
+            }
+        });
 
-                AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create(); //Read Update
-                alertDialog.setTitle("Delete " + name);
+        event_start_date.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                String name = currenctEvent.getTitle();
+                deleteEvent(name,v,position);
+                return true;
+            }
+        });
 
-                alertDialog.setButton("Delete", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        Event currenctEvent = eventList.get(position);
-                        eventList.remove(position);
-                        int id = currenctEvent.getEventId();
-                        Event.executeQuery("DELETE FROM EVENT WHERE EVENT_ID = '" + id + "'");
-                        notifyDataSetChanged();
-                    }
-                });
-
-                alertDialog.show();  //<-- See This!
-
+        event_end_date.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                String name = currenctEvent.getTitle();
+                deleteEvent(name,v,position);
                 return true;
             }
         });
 
         return listItem;
     }
+
+    private void deleteEvent(String name, View v,final int position) {
+        AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create(); //Read Update
+        alertDialog.setTitle("Delete " + name);
+
+        alertDialog.setButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                Event currenctEvent = eventList.get(position);
+                eventList.remove(position);
+                int id = currenctEvent.getEventId();
+                Event.executeQuery("DELETE FROM EVENT WHERE EVENT_ID = '" + id + "'");
+                notifyDataSetChanged();
+            }
+        });
+
+        alertDialog.show();  //<-- See This!
+
+    }
+
+
 }
