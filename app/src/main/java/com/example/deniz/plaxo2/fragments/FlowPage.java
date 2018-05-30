@@ -2,7 +2,6 @@ package com.example.deniz.plaxo2.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -11,9 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.deniz.plaxo2.R;
@@ -29,11 +26,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by Deniz on 17.03.2018.
@@ -56,8 +51,6 @@ public class FlowPage extends Fragment {
         connectFacebookButton = (Button) rootView.findViewById(R.id.facebook_button);
         facebooklistview = (ListView) rootView.findViewById(R.id.facebook_listview);
         mySwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeContainer);
-
-
         facebooklistview.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -134,10 +127,10 @@ public class FlowPage extends Fragment {
                 facebooklistview.setAdapter(mAdapter);
             }
         }
+
     }
 
     public void getFacebookMe() {
-        //String me = "";
         if (accessToken != null && AccessToken.getCurrentAccessToken() != null) {
             posts = new ArrayList<>();
             final AccessToken PageAT = new AccessToken(accessToken, AccessToken.getCurrentAccessToken().getApplicationId(), AccessToken.getCurrentAccessToken().getUserId(), AccessToken.getCurrentAccessToken().getPermissions(), null, AccessTokenSource.FACEBOOK_APPLICATION_NATIVE, AccessToken.getCurrentAccessToken().getExpires(), null);
@@ -188,6 +181,7 @@ public class FlowPage extends Fragment {
 
             Bundle parameters = new Bundle();
             parameters.putString("fields", "id,name,feed,picture");
+            parameters.putString("fields", "id,name,feed");
             request.setParameters(parameters);
             request.executeAsync();
         } else {
