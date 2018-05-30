@@ -22,6 +22,7 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.Arrays;
 
@@ -34,6 +35,8 @@ public class FacebookActivity extends AppCompatActivity {
     private static final String PAGES_SHOW_LIST = "pages_show_list";
     private CallbackManager callbackManager;
     private LoginButton loginButton;
+    public static AccessToken accessToken;
+    public static JSONObject responseJson;
 
 
     @Override
@@ -61,19 +64,6 @@ public class FacebookActivity extends AppCompatActivity {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-
-                AccessToken accessToken = AccessToken.getCurrentAccessToken();
-                GraphRequest request = GraphRequest.newMyFriendsRequest(
-                        accessToken,
-                        new GraphRequest.GraphJSONArrayCallback() {
-                            @Override
-                            public void onCompleted(JSONArray array, GraphResponse response) {
-                                Log.d("ARRAY", array + "");
-                                Log.d("RESPONSE", response + "");
-                            }
-                        });
-
-                request.executeAsync();
                 // App code
             }
 
@@ -88,10 +78,8 @@ public class FacebookActivity extends AppCompatActivity {
             }
         });
 
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        accessToken = AccessToken.getCurrentAccessToken();
         boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
-        Log.d("VAYAMK", accessToken + "");
-        Log.d("token2", isLoggedIn + "");
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
@@ -112,6 +100,4 @@ public class FacebookActivity extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
-
-
 }

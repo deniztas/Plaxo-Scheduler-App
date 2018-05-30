@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.deniz.plaxo2.R;
 import com.example.deniz.plaxo2.fragments.CalendarPage;
@@ -16,10 +17,8 @@ import java.util.List;
 
 public class ContactActivity extends AppCompatActivity {
 
-    private EditText name_surname;
-    private EditText phone_number;
-    private Button add_new_note_button;
-    private Button list_notes_button;
+    private TextView name_surname;
+    private TextView phone_number;
     private int contactId;
 
     @Override
@@ -27,10 +26,9 @@ public class ContactActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contact_info_layout);
 
-        name_surname = (EditText) findViewById(R.id.name_surname_field);
-        phone_number = (EditText) findViewById(R.id.phone_field);
-        add_new_note_button = (Button) findViewById(R.id.add_new_note_button);
-        list_notes_button = (Button) findViewById(R.id.list_notes_button);
+        name_surname = (TextView) findViewById(R.id.name_surname_field);
+        phone_number = (TextView) findViewById(R.id.phone_field);
+
 
         Intent intent = getIntent();
         String name = intent.getStringExtra("Object");

@@ -26,14 +26,14 @@
 
                 <TextView
                     android:id="@+id/name_surname_textview"
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Name - Surname" />
 
                 <TextView
                     android:id="@+id/phone_number_textview"
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Phone Number" />
@@ -50,21 +50,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
 
-                <EditText
+                <TextView
                     android:id="@+id/name_surname_field"
-                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="Name" />
+                    android:text="Name"
+                    android:textStyle="bold"
+                    android:textSize="18sp" />
 
-                <EditText
+                <TextView
                     android:id="@+id/phone_field"
-                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="Phone" />
+                    android:text="Phone"
+                    android:textStyle="bold"
+                    android:textSize="18sp" />
             </TableRow>
         </LinearLayout>
 
