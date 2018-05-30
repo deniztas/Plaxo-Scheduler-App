@@ -23,7 +23,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Connect Facebook"
-                android:onClick="onClick"/>
+                android:onClick="onClick"
+                android:background="#045FB4"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="10dp"/>
 
             <ListView
                 android:id="@+id/facebook_listview"

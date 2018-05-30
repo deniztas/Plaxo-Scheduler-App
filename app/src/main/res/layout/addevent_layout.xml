@@ -64,18 +64,21 @@
                 android:scaleY="0.80"
                 android:timePickerMode="spinner" />
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/addEvent_fab"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|right"
-                android:layout_margin="@dimen/fab_margin"
-                android:src="@drawable/ic_done_24dp"
-                android:tint="@android:color/white"
-                app:backgroundTint="@android:color/holo_blue_bright"
-                tools:layout_editor_absoluteX="319dp"
-                tools:layout_editor_absoluteY="455dp" />
+
         </LinearLayout>
     </ScrollView>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/addEvent_fab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right|end"
+        app:backgroundTint="#6495ED"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_done_24dp"
+        android:tint="@android:color/white"
+        app:layout_anchorGravity="bottom|right|end"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true" />
 </RelativeLayout>

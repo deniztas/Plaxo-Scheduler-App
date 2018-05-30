@@ -28,7 +28,9 @@
                 android:id="@+id/permissionButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Get Contact" />
+                android:text="Get Contact"
+                android:background="#045FB4"
+                android:textColor="#FFFFFF"/>
 
             <ListView
                 android:id="@+id/contactListview"
